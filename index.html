@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nkansahs Mini Carvings | Handmade Miniature Wood Art</title>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --primary:#111;
+    --accent:#d4af37;
+    --light:#f9f9f9;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:var(--light);
+    color:#222;
+}
+
+/* ================= NAVBAR ================= */
+header{
+    background:var(--primary);
+    color:white;
+    padding:15px 5%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+.logo{ font-weight:700; font-size:18px; }
+nav{ display:flex; gap:20px; }
+nav a{ color:white; text-decoration:none; font-size:14px; }
+.menu-toggle{ display:none; font-size:24px; cursor:pointer; }
+
+/* ================= HERO ================= */
+.hero{
+    padding:100px 5%;
+    text-align:center;
+    background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url('images/fade.PNG');
+    background-size:cover;
+    background-position:center;
+    color:white;
+}
+.hero h1{ font-size:40px; margin-bottom:15px; }
+.hero p{ max-width:600px; margin:auto; font-size:16px; }
+.btn{
+    display:inline-block;
+    padding:12px 25px;
+    margin-top:20px;
+    background:var(--accent);
+    color:black;
+    font-weight:600;
+    border-radius:30px;
+    text-decoration:none;
+}
+
+/* ================= SECTION ================= */
+.section{ padding:70px 5%; }
+.section-title{ text-align:center; font-size:28px; margin-bottom:40px; }
+
+/* ================= GALLERY ================= */
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+/* ================= PRODUCT CARD ================= */
+.product-card{
+    background:white;
+    border-radius:12px;
+    overflow: visible; /* allow dropdown to show */
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+    transition:0.3s ease;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding-bottom:15px;
+    position: relative; /* for dropdown positioning */
+    z-index: 1;
+}
+
+.product-card:hover{
+    transform:translateY(-5px);
+}
+
+.product-card img{
+    width:200px;
+    height:200px;
+    object-fit:cover;
+    border-radius:6px;
+    margin-bottom:10px;
+}
+
+.product-info{
+    padding:0 15px;
+    text-align:center;
+    width:100%;
+}
+
+.product-info p.description{
+    font-size:14px;
+    margin:5px 0;
+    color:#333;
+}
+
+.price{
+    font-weight:600;
+    font-size:18px;
+    margin:10px 0;
+    color:var(--accent);
+}
+
+.pay-btn{
+    display:inline-block;
+    padding:10px 18px;
+    background:var(--primary);
+    color:white;
+    text-decoration:none;
+    border-radius:6px;
+    font-size:14px;
+    transition:0.3s;
+    cursor:pointer;
+}
+
+.pay-btn:hover{
+    background:#333;
+}
+
+/* ================= DROPUP PAY OPTIONS ================= */
+.pay-dropdown-content{
+    display:none;
+    position: absolute;
+    bottom: calc(100% + 8px); /* dropup */
+    left:50%;
+    transform:translateX(-50%);
+    background:white;
+    min-width:160px;
+    border-radius:6px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+    z-index:9999;
+    flex-direction:column;
+    text-align:left;
+}
+
+.pay-dropdown-content a{
+    padding:10px 15px;
+    text-decoration:none;
+    color:#111;
+    display:block;
+    font-size:14px;
+}
+
+.pay-dropdown-content a:hover{
+    background:#f0f0f0;
+}
+
+/* ================= MORE WORKS BUTTON ================= */
+.more-works {
+    text-align:center;
+    margin-top:40px;
+}
+.more-works a{
+    display:inline-block;
+    padding:12px 25px;
+    background:var(--accent);
+    color:black;
+    text-decoration:none;
+    border-radius:30px;
+    font-weight:600;
+    transition:0.3s ease;
+}
+.more-works a:hover{
+    background:#b38f2f;
+}
+
+/* ================= ORDER FORM ================= */
+form{
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    max-width:600px;
+    margin:auto;
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+form input, form textarea, form select{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border:1px solid #ddd;
+    border-radius:6px;
+    font-size:14px;
+}
+
+form textarea{
+    resize:none;
+    height:120px;
+}
+
+form button{
+    width:100%;
+    padding:12px;
+    background:var(--primary);
+    color:white;
+    border:none;
+    border-radius:6px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+/* ================= FOOTER ================= */
+footer{
+    background:var(--primary);
+    color:white;
+    text-align:center;
+    padding:30px 5%;
+    margin-top:60px;
+    font-size:14px;
+}
+
+/* ================= MOBILE ================= */
+@media(max-width:768px){
+    nav{
+        position:absolute;
+        top:60px;
+        right:0;
+        background:var(--primary);
+        flex-direction:column;
+        width:200px;
+        display:none;
+        padding:20px;
+    }
+    nav.active{ display:flex; }
+    .menu-toggle{ display:block; }
+    .hero h1{ font-size:28px; }
+    .pay-dropdown-content{
+        min-width:140px;
+        bottom: calc(100% + 10px); /* maintain dropup on mobile */
+    }
+}
+
+/* ================= WHATSAPP FLOAT ================= */
+.whatsapp-float{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    background:#25D366;
+    color:white;
+    font-size:26px;
+    padding:16px;
+    border-radius:50%;
+    text-align:center;
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    z-index:1000;
+    transition:0.3s ease;
+}
+
+.whatsapp-float:hover{
+    transform:scale(1.1);
+}
+
+/* ================= SOCIAL MEDIA ================= */
+
+.social-icons{
+    margin:20px 0;
+}
+
+.social-icons a{
+    color:white;
+    font-size:20px;
+    margin:0 12px;
+    transition:0.3s ease;
+}
+
+.social-icons a:hover{
+    color:var(--accent);
+    transform:scale(1.2);
+}
+
+/* ================= MODAL ================= */
+
+.modal{
+    display:none;
+    position:fixed;
+    z-index:2000;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.7);
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.modal-content{
+    background:white;
+    max-width:600px;
+    width:100%;
+    padding:30px;
+    border-radius:12px;
+    text-align:center;
+    position:relative;
+    animation:fadeIn 0.4s ease;
+
+    max-height:80vh;          /* Prevent overflow */
+    overflow-y:auto;          /* Enable vertical scroll */
+}
+
+.modal-content img{
+    width:180px;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+
+.close-btn{
+    position:absolute;
+    right:20px;
+    top:15px;
+    font-size:26px;
+    cursor:pointer;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(-20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+.see-more-btn{
+    margin-top:15px;
+    padding:8px 18px;
+    border:none;
+    background:#000;
+    color:white;
+    cursor:pointer;
+    border-radius:6px;
+    transition:0.3s ease;
+}
+
+.see-more-btn:hover{
+    background:#444;
+}
+
+.scroll-btn{
+    margin:10px 0 20px;
+    padding:6px 14px;
+    border:none;
+    background:var(--accent);
+    color:black;
+    border-radius:20px;
+    font-size:13px;
+    cursor:pointer;
+    transition:0.3s ease;
+}
+
+.scroll-btn:hover{
+    opacity:0.8;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo">Nkansahs Mini Carvings</div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <nav id="navLinks">
+        <a href="#gallery">Gallery</a>
+        <a href="#order">Custom Order</a>
+        <a href="https://wa.me/233241324113" target="_blank">WhatsApp</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>Handcrafted Miniature Wood Carvings</h1>
+    <p>Ultra-detailed handmade sculptures from Ghana. Custom portraits, animals and cultural figurines crafted with precision.</p>
+    <a href="#" class="btn" onclick="openModal()">About the Artist</a>
+</section>
+
+<section class="section" id="gallery">
+    <h2 class="section-title">Our Work</h2>
+    <div class="gallery" id="galleryContainer">
+        <!-- Dynamic artworks will appear here -->
+    </div>
+
+<div class="more-works">
+    <a href="#" id="loadMoreBtn">See More</a>
+</div>
+</section>
+
+<section class="section" id="order">
+    <h2 class="section-title">Place a Custom Order</h2>
+    <form id="orderForm">
+        <input type="text" placeholder="Full Name" required>
+        <input type="email" placeholder="Email Address" required>
+        <textarea placeholder="Describe your custom carving..." required></textarea>
+        <select required>
+            <option value="">Select Payment Method</option>
+            <option value="paypal">PayPal</option>
+            <option value="cashapp">Cash App</option>
+        </select>
+        <button type="submit">Submit Order</button>
+    </form>
+</section>
+
+<footer>
+       <div class="social-icons">
+        <a href="https://www.facebook.com/share/1T3W8s7S5d/?mibextid=wwXIfr" target="_blank">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+
+        <a href="https://www.tiktok.com/@nkansahsminicarvings" target="_blank">
+            <i class="fab fa-tiktok"></i>
+        </a>
+
+        <a href="https://www.instagram.com/nkansahs_mini_carvings?igsh=MXNpZHEwODl2bTNhcQ==" target="_blank">
+            <i class="fab fa-instagram"></i>
+        </a>
+    </div>
+
+    <p>Email: nkansahsminicarvings@gmail.com</p>
+    <p>Phone / WhatsApp: +233 547328443</p>
+    <p>© 2026 Nkansahs Mini Carvings. All Rights Reserved.</p>
+</footer>
+
+<a href="https://wa.me/233241324113" class="whatsapp-float" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- ARTIST MODAL -->
+<!-- Artist Modal -->
+<!-- Artist Modal -->
+<div id="artistModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+
+        <img src="images/yourphoto.jpg" alt="Daniel Nkansah">
+
+        <h2>About the Artist</h2>
+		<button class="scroll-btn" onclick="scrollBio()">Scroll Down ↓</button>
+
+        <!-- Short Version -->
+        <div id="shortBio">
+            <p>
+                I am <strong>Daniel Nkansah</strong>, a proud Ghanaian artist from Kwahu Dan in the Eastern Region of Ghana, born on September 6, 1993.
+            </p>
+
+            <p>
+                Rooted in rich cultural heritage, I am passionate about singing, drawing, soccer, wood carving, and sharing the teachings of Christ Jesus.
+            </p>
+
+            <p>
+                My wood carving journey began in 2002 when I first picked up a blade and carved a human figure — a moment that sparked a lifelong passion.
+            </p>
+
+            <button class="see-more-btn" onclick="showFullBio()">See More</button>
+        </div>
+
+        <!-- Full Version -->
+        <div id="fullBio" style="display:none; text-align:left;">
+
+            <p>
+                I am the first of four siblings, born to Alex Frimpong of Kwahu Obomeng and Vida Afansa of Twenedurase. Growing up as the eldest shaped my strong sense of responsibility, leadership, and creativity.
+            </p>
+
+            <p>
+                My educational journey began at Extra 'O' Level Preparatory School and continued through Blessed Assurance Preparatory School and Banaman Government School. I later completed Junior High at Happy Souls Academy and studied Woodwork at Kinbu Senior High School (2009–2012).
+            </p>
+
+            <p>
+                Though I did not pursue tertiary education, my life reflects perseverance, continuous learning, and personal growth.
+            </p>
+
+            <p>
+                In 2020, encouragement from a friend and an opportunity discovered on Facebook reignited my passion — this time focusing on miniature carving.
+            </p>
+
+            <p>
+                Using tools such as X-Acto knives, super glue, and basswood, I create detailed and intricate miniature sculptures.
+            </p>
+
+            <p>
+                Through dedication and hard work, I stand as a testament that dreams can be nurtured into reality with faith, persistence, and passion.
+            </p>
+
+            <button class="see-more-btn" onclick="hideFullBio()">Show Less</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- ARTIST MODAL-->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = 'https://pehkrfaxmsrlwzoyoqwn.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBlaGtyZmF4bXNybHd6b3lvcXduIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI0ODkyOTQsImV4cCI6MjA4ODA2NTI5NH0.vXdhCFAMU0FlfaLRgMJohg0lXEb-XnBUEfxzRAIr50U';
+const { createClient } = supabase;
+const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const galleryContainer = document.getElementById('galleryContainer');
+const loadMoreBtn = document.getElementById("loadMoreBtn");
+
+let allArtworks = [];
+let displayedCount = 0;
+const initialLimit = 4; // show only 4 first
+
+async function loadArtworks() {
+    const { data, error } = await supabaseClient
+        .from('artworks')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+    if (error) { console.error(error); return; }
+
+    allArtworks = data;
+
+    showArtworks(initialLimit);
+}
+
+function showArtworks(limit) {
+    const itemsToShow = allArtworks.slice(displayedCount, displayedCount + limit);
+
+    itemsToShow.forEach(art => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+            <img src="${art.image_url}" alt="Artwork">
+            <div class="product-info">
+                <p class="description">${art.description}</p>
+                <div class="price">$${art.price}</div>
+                <div style="position:relative;">
+                    <a class="pay-btn">Pay Now</a>
+                    <div class="pay-dropdown-content">
+                        <a href="https://www.paypal.me/latricestewart1361" target="_blank">
+                            Pay with PayPal
+                        </a>
+                        <a href="https://cash.app/$PassionateUnique" target="_blank">
+                            Pay with Cash App
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
+        galleryContainer.appendChild(card);
+    });
+
+    displayedCount += limit;
+
+    // Hide button if no more items
+    if (displayedCount >= allArtworks.length) {
+        loadMoreBtn.style.display = "none";
+    }
+
+    attachDropdowns();
+}
+
+function attachDropdowns() {
+    document.querySelectorAll('.product-card').forEach(card => {
+        const btn = card.querySelector('.pay-btn');
+        const dropdown = card.querySelector('.pay-dropdown-content');
+
+        btn.onclick = (e) => {
+            e.stopPropagation();
+            document.querySelectorAll('.pay-dropdown-content').forEach(d => {
+                if(d !== dropdown) d.style.display = 'none';
+            });
+            dropdown.style.display = dropdown.style.display === 'flex' ? 'none' : 'flex';
+            dropdown.style.flexDirection = 'column';
+        };
+    });
+}
+
+// ARTIST
+function openModal(){
+    document.getElementById("artistModal").style.display = "flex";
+}
+
+function closeModal(){
+    document.getElementById("artistModal").style.display = "none";
+}
+
+window.onclick = function(event){
+    let modal = document.getElementById("artistModal");
+    if(event.target == modal){
+        modal.style.display = "none";
+    }
+}
+
+function showFullBio(){
+    document.getElementById("shortBio").style.display="none";
+    document.getElementById("fullBio").style.display="block";
+}
+
+function hideFullBio(){
+    document.getElementById("shortBio").style.display="block";
+    document.getElementById("fullBio").style.display="none";
+}
+
+function scrollBio(){
+    document.querySelector(".modal-content").scrollTo({
+        top: 500,
+        behavior: "smooth"
+    });
+}
+
+
+//ARTIST SIDE
+
+
+// Load more button click
+loadMoreBtn.addEventListener("click", function(e){
+    e.preventDefault();
+    showArtworks(4); // show 4 more each click
+});
+
+// Close dropdown if clicked outside
+document.addEventListener('click', () => {
+    document.querySelectorAll('.pay-dropdown-content').forEach(d => d.style.display = 'none');
+});
+
+function toggleMenu(){ 
+    document.getElementById("navLinks").classList.toggle("active"); 
+}
+
+document.getElementById("orderForm").addEventListener("submit", e=>{
+    e.preventDefault();
+
+    const name = document.querySelector('#orderForm input[type="text"]').value;
+    const email = document.querySelector('#orderForm input[type="email"]').value;
+    const description = document.querySelector('#orderForm textarea').value;
+    const payment = document.querySelector('#orderForm select').value;
+
+    const phoneNumber = "233241324113"; // your WhatsApp number (no + sign)
+
+    const message = `Hello, I would like to place a custom order.
+
+Name: ${name}
+Email: ${email}
+Description: ${description}
+Preferred Payment: ${payment}`;
+
+    const encodedMessage = encodeURIComponent(message);
+
+    window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, "_blank");
+});
+
+loadArtworks();
+</script>
+
+</body>
+</html>
