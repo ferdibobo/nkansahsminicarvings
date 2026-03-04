@@ -882,7 +882,7 @@ function toggleMenu(){
     document.getElementById("navLinks").classList.toggle("active"); 
 }
 
-document.getElementById("orderForm").addEventListener("submit", e=>{
+document.getElementById("orderForm").addEventListener("submit", function(e){
     e.preventDefault();
 
     const name = document.querySelector('#orderForm input[type="text"]').value;
@@ -890,18 +890,20 @@ document.getElementById("orderForm").addEventListener("submit", e=>{
     const description = document.querySelector('#orderForm textarea').value;
     const payment = document.querySelector('#orderForm select').value;
 
-    const phoneNumber = "233241324113"; // your WhatsApp number (no + sign)
+    const subject = encodeURIComponent("Custom Order from Website");
+    const body = encodeURIComponent(
+        `Hello,\n\nI would like to place a custom order:\n\n` +
+        `Name: ${name}\n` +
+        `Email: ${email}\n` +
+        `Description: ${description}\n` +
+        `Preferred Payment: ${payment}\n\nThank you!`
+    );
 
-    const message = `Hello, I would like to place a custom order.
+    // Replace with your email address
+    const mailtoLink = `mailto:youremail@gmail.com?subject=${subject}&body=${body}`;
 
-Name: ${name}
-Email: ${email}
-Description: ${description}
-Preferred Payment: ${payment}`;
-
-    const encodedMessage = encodeURIComponent(message);
-
-    window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, "_blank");
+    // Open user's email client
+    window.location.href = mailtoLink;
 });
 
 // cart
