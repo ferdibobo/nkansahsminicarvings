@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nkansahs Mini Carvings - Orders Admin</title>
+
+<!-- Google Fonts & Font Awesome -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f9f9f9;
+    margin:0; padding:0;
+}
+header {
+    background: #111;
+    color: white;
+    padding: 20px 5%;
+    text-align: center;
+}
+h1 { margin:0; font-weight:700; }
+.table-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    background:white;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+    overflow-x:auto;
+}
+table {
+    width:100%;
+    border-collapse: collapse;
+}
+table th, table td {
+    padding:12px 15px;
+    text-align:left;
+    border-bottom:1px solid #ddd;
+    font-size:14px;
+}
+table th {
+    background:#111;
+    color:white;
+    font-weight:600;
+}
+tr:hover { background:#f1f1f1; }
+.password-overlay {
+    position: fixed;
+    inset:0;
+    background: rgba(0,0,0,0.8);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:3000;
+    flex-direction: column;
+    color:white;
+}
+.password-overlay input {
+    padding:12px 15px;
+    border-radius:8px;
+    border:none;
+    font-size:16px;
+    margin-top:10px;
+}
+.password-overlay button {
+    margin-top:15px;
+    padding:10px 20px;
+    font-size:16px;
+    border:none;
+    border-radius:8px;
+    background:#d4af37;
+    color:#111;
+    font-weight:600;
+    cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<div class="password-overlay" id="passwordOverlay">
+    <h2>Enter Admin Password</h2>
+    <input type="password" id="adminPassword" placeholder="Password">
+    <button onclick="checkPassword()">Enter</button>
+    <p id="passError" style="color:red;margin-top:10px;"></p>
+</div>
+
+<header>
+    <h1>Nkansahs Mini Carvings - Orders</h1>
+</header>
+
+<div class="table-container" id="ordersContainer" style="display:none;">
+      <button id="refreshBtn" style="padding:10px 20px; margin-bottom:15px; background:#d4af37; color:#111; border:none; border-radius:8px; font-weight:600; cursor:pointer;">
+        <i class="fa-solid fa-arrows-rotate"></i> Refresh Orders
+    </button>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Description</th>
+                <th>Payment</th>
+                <th>Total ($)</th>
+                <th>Receiver</th>
+                <th>Address</th>
+                <th>City/Town</th>
+                <th>State</th>
+                <th>Country</th>
+                <th>Zip</th>
+                <th>Tel</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody id="ordersTableBody">
+        </tbody>
+    </table>
+</div>
+
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = 'https://pehkrfaxmsrlwzoyoqwn.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBlaGtyZmF4bXNybHd6b3lvcXduIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI0ODkyOTQsImV4cCI6MjA4ODA2NTI5NH0.vXdhCFAMU0FlfaLRgMJohg0lXEb-XnBUEfxzRAIr50U';
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const PASSWORD = "minicarvingsnkansahs12!"; // admin password
+
+// ✅ Check password and load orders
+function checkPassword() {
+    const input = document.getElementById("adminPassword").value;
+    if(input === PASSWORD) {
+        document.getElementById("passwordOverlay").style.display = "none";
+        document.getElementById("ordersContainer").style.display = "block";
+        fetchOrders();
+    } else {
+        document.getElementById("passError").innerText = "Incorrect password!";
+    }
+}
+
+// ✅ Fetch orders from Supabase and populate table
+async function fetchOrders() {
+    try {
+        const { data, error } = await supabaseClient
+            .from('orders')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+        if(error) throw error;
+
+        const tbody = document.getElementById("ordersTableBody");
+        tbody.innerHTML = '';
+
+        data.forEach((order, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${order.full_name}</td>
+                <td>${order.email}</td>
+                <td>${order.description}</td>
+                <td>${order.payment_method}</td>
+                <td>${order.total_amount}</td>
+                <td>${order.receiver_name}</td>
+                <td>${order.receiver_address}</td>
+                <td>${order.city_town}</td>
+                <td>${order.state}</td>
+                <td>${order.country}</td>
+                <td>${order.zip_code}</td>
+                <td>${order.tel}</td>
+                <td>${new Date(order.created_at).toLocaleString()}</td>
+            `;
+            tbody.appendChild(row);
+        });
+
+    } catch (err) {
+        console.error("Error fetching orders:", err);
+        alert("Failed to fetch orders. Check console.");
+    }
+}
+
+// Add event listener to refresh button
+document.getElementById("refreshBtn").addEventListener("click", () => {
+    fetchOrders();
+});
+</script>
+</body>
+</html>
