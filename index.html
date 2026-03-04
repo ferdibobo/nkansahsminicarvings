@@ -370,6 +370,244 @@ footer{
 .scroll-btn:hover{
     opacity:0.8;
 }
+
+/* ===== ECOMMERCE CART UPGRADE ===== */
+
+/* ===== MODERN CART ===== */
+.cart{
+    background:#ffffff;
+    margin:50px auto;
+    padding:30px;
+    max-width:900px;
+    border-radius:16px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.08);
+}
+
+.cart h2{
+    text-align:center;
+    margin-bottom:25px;
+    font-size:28px;
+    color:#222;
+}
+
+.cart-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px;
+    margin-bottom:15px;
+    background:#f9f9f9;
+    border-radius:12px;
+    transition:0.3s;
+}
+
+.cart-item:hover{
+    transform:translateY(-3px);
+    box-shadow:0 8px 20px rgba(0,0,0,0.05);
+}
+
+.cart-total{
+    text-align:right;
+    font-size:22px;
+    font-weight:bold;
+    margin-top:20px;
+    color:#000;
+}
+
+/* ===== BIGGER CHECKOUT SECTION ===== */
+.checkout-section{
+    margin:40px auto;
+    padding:40px;
+    background:#ffffff;
+    border-radius:20px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.1);
+    width:100%;
+    max-width:1100px; /* makes it wider */
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.checkout-section h3{
+    font-size:28px;
+    text-align:center;
+    margin-bottom:15px;
+}
+
+.checkout-section input{
+    width:100%;
+    padding:18px;
+    border-radius:12px;
+    border:1px solid #ddd;
+    font-size:16px;
+}
+
+.checkout-section input:focus{
+    border-color:#000;
+    outline:none;
+    box-shadow:0 0 0 3px rgba(0,0,0,0.05);
+}
+
+/* ===== PAYMENT MODAL ===== */
+.payment-modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.6);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:2000;
+}
+
+.payment-content{
+    background:#fff;
+    padding:40px;
+    border-radius:20px;
+    text-align:center;
+    width:90%;
+    max-width:400px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.2);
+    animation:fadeIn 0.3s ease;
+}
+
+.payment-content h3{
+    margin-bottom:20px;
+}
+
+@keyframes fadeIn{
+    from{transform:scale(0.9);opacity:0;}
+    to{transform:scale(1);opacity:1;}
+}
+
+/* ===== MODERN CHECKOUT STYLE ===== */
+
+.checkout-card{
+    background:#f7f7f7;
+    padding:30px;
+    border-radius:18px;
+    max-width:600px;
+    margin:30px auto;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.form-group label{
+    font-weight:600;
+    font-size:14px;
+}
+
+.form-group input,
+.form-group select{
+    height:55px;
+    padding:0 15px;
+    border-radius:12px;
+    border:1px solid #ddd;
+    font-size:15px;
+    background:white;
+}
+
+.form-group input:focus,
+.form-group select:focus{
+    outline:none;
+    border-color:#2ecc71;
+    box-shadow:0 0 0 3px rgba(46,204,113,0.1);
+}
+
+.row{
+    display:flex;
+    gap:15px;
+}
+
+.row .form-group{
+    flex:1;
+}
+
+.error-msg{
+    font-size:12px;
+    color:#e74c3c;
+}
+
+.pay-main-btn{
+    height:55px;
+    background:#2ecc71;
+    color:white;
+    font-size:17px;
+    font-weight:600;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.pay-main-btn:hover{
+    background:#27ae60;
+}
+
+.back-btn{
+    height:50px;
+    background:#eaeaea;
+    border:none;
+    border-radius:12px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+/* ===== ADD TO CART BUTTON ===== */
+.add-cart-btn {
+    display: inline-block;
+    padding: 10px 18px;
+    background: var(--accent);
+    color: #111;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    margin-top: 8px;
+}
+
+.add-cart-btn:hover {
+    background: #b38f2f; /* darker gold */
+    color: white;
+    transform: translateY(-2px);
+}
+
+@media(max-width: 480px) {
+    .add-cart-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--accent);
+    color: #111;
+    padding: 12px 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    font-weight: 600;
+    z-index: 3000;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(-10px);
+    pointer-events: auto;
+}
 </style>
 </head>
 <body>
@@ -540,29 +778,35 @@ function showArtworks(limit) {
         const card = document.createElement('div');
         card.className = 'product-card';
         card.innerHTML = `
-            <img src="${art.image_url}" alt="Artwork">
-            <div class="product-info">
-                <p class="description">${art.description}</p>
-                <div class="price">$${art.price}</div>
-                <div style="position:relative;">
-                    <a class="pay-btn">Pay Now</a>
-                    <div class="pay-dropdown-content">
-                        <a href="https://www.paypal.me/latricestewart1361" target="_blank">
-                            Pay with PayPal
-                        </a>
-                        <a href="https://cash.app/$PassionateUnique" target="_blank">
-                            Pay with Cash App
-                        </a>
-                    </div>
-                </div>
-            </div>
+    <img src="${art.image_url}" alt="Artwork">
+    <div class="product-info">
+        <p class="description">${art.description}</p>
+        <div class="price">$${art.price}</div>
+
+        <!-- Quantity input -->
+        <input type="number" class="quantity-input" value="1" min="1" 
+            style="width:60px; margin-bottom:10px; border-radius:6px; border:1px solid #ddd; padding:6px;">
+
+        <!-- Add to Cart button -->
+        <button class="add-cart-btn">Add to Cart</button>
+    </div>
         `;
+
         galleryContainer.appendChild(card);
+
+        // Attach click to Add to Cart button
+// Attach click to Add to Cart button with quantity
+    // 🔹 Attach click listener for Add to Cart (this is where you read the quantity)
+    const addBtn = card.querySelector('.add-cart-btn');
+    addBtn.addEventListener('click', () => {
+        const qtyInput = card.querySelector('.quantity-input');
+        const quantity = parseInt(qtyInput.value) || 1;
+        addToCart(art, quantity);  // Pass quantity to cart
     });
+});
 
     displayedCount += limit;
 
-    // Hide button if no more items
     if (displayedCount >= allArtworks.length) {
         loadMoreBtn.style.display = "none";
     }
@@ -660,8 +904,210 @@ Preferred Payment: ${payment}`;
     window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, "_blank");
 });
 
+// cart
+let cart = [];
+
+function addToCart(art, quantity = 1) {
+    // Check if this artwork is already in the cart
+    const existingItem = cart.find(item => item.art.id === art.id);
+    
+    if (existingItem) {
+        existingItem.quantity += quantity; // add to existing quantity
+    } else {
+        cart.push({ art, quantity }); // add new item
+    }
+
+    showToast(`Added ${quantity} × "${art.description}" to cart!`);
+    updateCartDisplay();
+}
+
+function updateCartDisplay() {
+    let cartSection = document.getElementById('cartSection');
+    if (!cartSection) {
+        cartSection = document.createElement('section');
+        cartSection.id = 'cartSection';
+        cartSection.className = 'section';
+        cartSection.innerHTML = `
+            <h2 class="section-title">Your Cart</h2>
+            <div id="cartContainer"></div>
+            <button id="checkoutBtn" class="btn">Proceed to Payment</button>
+        `;
+        document.body.insertBefore(cartSection, document.getElementById('order'));
+        document.getElementById('checkoutBtn').addEventListener('click', showCartPaymentOptions);
+    }
+
+    const cartContainer = document.getElementById('cartContainer');
+    cartContainer.innerHTML = '';
+
+    cart.forEach((item, index) => {
+        cartContainer.innerHTML += `
+            <div class="cart-item">
+                <span>${item.art.description} - $${item.art.price} × ${item.quantity}</span>
+                <button onclick="removeFromCart(${index})"
+                style="background:red;color:white;border:none;border-radius:6px;padding:6px 10px;">
+                Remove
+                </button>
+            </div>
+        `;
+    });
+
+    // Total with quantities
+    let total = cart.reduce((sum, item) => sum + item.art.price * item.quantity, 0);
+    cartContainer.innerHTML += `<div class="cart-total">Total: $${total}</div>`;
+}
+
+function removeFromCart(index) {
+    cart.splice(index,1);
+    updateCartDisplay();
+}
+
+function showCartPaymentOptions() {
+
+    if(cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
+
+    let checkoutSection = document.getElementById("checkoutSection");
+
+    if(!checkoutSection){
+        checkoutSection = document.createElement("section");
+        checkoutSection.id = "checkoutSection";
+        checkoutSection.className = "section";
+        checkoutSection.innerHTML = `
+    <h2 class="section-title">Checkout</h2>
+
+    <div class="checkout-card">
+
+        <div class="form-group">
+             <label>Delivery Address</label>
+    <input type="text" id="deliveryAddress" placeholder="Full address">
+    <span id="addressError" style="color:red;font-size:12px;"></span>
+
+    <label>City</label>
+    <input type="text" id="deliveryCity" placeholder="City">
+    <span id="cityError" style="color:red;font-size:12px;"></span>
+
+    <label>State</label>
+    <input type="text" id="deliveryState" placeholder="State">
+    <span id="stateError" style="color:red;font-size:12px;"></span>
+
+    <button class="btn" onclick="continueToPayment()">Continue to Pay</button>
+
+    </div>
+        `;
+        document.body.insertBefore(checkoutSection, document.getElementById('order'));
+    }
+
+    checkoutSection.scrollIntoView({behavior:"smooth"});
+}
+
+
+//cart
+function continueToPayment() {
+    // Grab the inputs
+    const addressInput = document.getElementById("deliveryAddress");
+    const cityInput = document.getElementById("deliveryCity");
+    const stateInput = document.getElementById("deliveryState");
+
+    // Make sure inputs exist
+    if (!addressInput || !cityInput || !stateInput) {
+        alert("Checkout form not loaded yet!");
+        return;
+    }
+
+    let valid = true;
+
+    // Clear previous errors
+    document.getElementById("addressError").innerText = "";
+    document.getElementById("cityError").innerText = "";
+    document.getElementById("stateError").innerText = "";
+
+    // Validate
+    if (!addressInput.value) {
+        document.getElementById("addressError").innerText = "Address is required";
+        valid = false;
+    }
+    if (!cityInput.value) {
+        document.getElementById("cityError").innerText = "City is required";
+        valid = false;
+    }
+    if (!stateInput.value) {
+        document.getElementById("stateError").innerText = "State is required";
+        valid = false;
+    }
+
+    if (!valid) return;
+
+    // Show payment modal
+    document.getElementById("paymentModal").style.display = "flex";
+}
+
+// Expose to window for onclick in HTML
+window.continueToPayment = continueToPayment;
+
+// Payment buttons
+function payWithPaypal() {
+    if(cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
+
+    // Calculate total
+    let total = cart.reduce((sum, item) => sum + item.art.price * item.quantity, 0);
+
+    // Go to PayPal with total amount
+    const paypalLink = `https://www.paypal.me/latricestewart1361/${total}`;
+    window.open(paypalLink, '_blank');
+}
+//CASHAPP
+function payWithCashApp() {
+    if(cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
+
+    // Calculate total
+    let total = cart.reduce((sum, item) => sum + item.art.price * item.quantity, 0);
+
+    // Go to Cash App with total amount
+    const cashAppLink = `https://cash.app/$PassionateUnique/${total}`;
+    window.open(cashAppLink, '_blank');
+}
+function closePaymentModal() {
+    document.getElementById("paymentModal").style.display = "none";
+}
+
+window.payWithPaypal = payWithPaypal;
+window.payWithCashApp = payWithCashApp;
+window.closePaymentModal = closePaymentModal;
+
+
+
+function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.innerText = message;
+    toast.classList.add("show");
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2500); // 2.5 seconds
+}
+
 loadArtworks();
 </script>
 
+<div id="paymentModal" class="payment-modal">
+    <div class="payment-content">
+        <h3>Select Payment Method</h3>
+        <button class="btn" onclick="payWithPaypal()">Pay with PayPal</button>
+        <button class="btn" onclick="payWithCashApp()">Pay with CashApp</button>
+        <br><br>
+        <button onclick="closePaymentModal()" style="background:red;color:white;border:none;padding:8px 14px;border-radius:6px;">Cancel</button>
+    </div>
+</div>
+
+
+<!-- Toast container -->
+<div id="toast" class="toast"></div>
 </body>
 </html>
