@@ -908,6 +908,7 @@ document.getElementById("orderForm").addEventListener("submit", function(e){
 
 // cart
 let cart = [];
+let finalTotal = 0;
 
 function addToCart(art, quantity = 1) {
     // Check if this artwork is already in the cart
@@ -954,8 +955,23 @@ function updateCartDisplay() {
     });
 
     // Total with quantities
-    let total = cart.reduce((sum, item) => sum + item.art.price * item.quantity, 0);
-    cartContainer.innerHTML += `<div class="cart-total">Total: $${total}</div>`;
+    let subtotal = cart.reduce((sum, item) => 
+    sum + item.art.price * item.quantity, 0
+    );
+
+    // Shipping
+    let shippingFee = cart.length > 0 ? 15 : 0;
+
+    // Final Total
+    finalTotal = subtotal + shippingFee;
+
+    // Display
+    cartContainer.innerHTML += `
+    <div class="cart-summary">
+        <div>Subtotal: $${subtotal}</div>
+        <div><b style="color:green">Shipping Fee: $${shippingFee}</b></div>
+        <div class="cart-total"><strong>Total: $${finalTotal}</strong></div>
+    </div>`;
 }
 
 function removeFromCart(index) {
@@ -1055,11 +1071,7 @@ function payWithPaypal() {
         return;
     }
 
-    // Calculate total
-    let total = cart.reduce((sum, item) => sum + item.art.price * item.quantity, 0);
-
-    // Go to PayPal with total amount
-    const paypalLink = `https://www.paypal.me/latricestewart1361/${total}`;
+    const paypalLink = `https://www.paypal.me/latricestewart1361/${finalTotal}`;
     window.open(paypalLink, '_blank');
 }
 //CASHAPP
@@ -1069,13 +1081,10 @@ function payWithCashApp() {
         return;
     }
 
-    // Calculate total
-    let total = cart.reduce((sum, item) => sum + item.art.price * item.quantity, 0);
-
-    // Go to Cash App with total amount
-    const cashAppLink = `https://cash.app/$PassionateUnique/${total}`;
+    const cashAppLink = `https://cash.app/$PassionateUnique/${finalTotal}`;
     window.open(cashAppLink, '_blank');
 }
+
 function closePaymentModal() {
     document.getElementById("paymentModal").style.display = "none";
 }
